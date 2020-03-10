@@ -6,7 +6,7 @@
 body {
     margin: 0;
     padding: 0;
-    background: #7AC890;
+    background: #c5cfdf;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,7 +50,11 @@ a {
     height: 20px;
     margin-right: 4px;
 }
-
+#last-update {
+    font-size: 11px;
+    color: #fff;
+    margin-bottom: 10px;
+}
 .country {
     fill: #fff;
     stroke: #7590bd;
@@ -76,6 +80,6 @@ a {
     font-size: 12px;
 }
 .copyright {
-    color: #e6e6e6;
+    color: #fff;
     font-size: 18px;
 }

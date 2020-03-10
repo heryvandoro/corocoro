@@ -1,3 +1,4 @@
+const API_URL = "https://covid19.mathdro.id/api";
 const width = 1200, height = 500
 const svg = d3.select('#map').append('svg')
 			.attr('width', width)
@@ -27,6 +28,14 @@ const loadLegends = () => {
 }
 loadLegends();
 
+const loadGeneralStatistic = async () => {
+	const statistics = await fetch(`${API_URL}`).then(res => res.json());
+	if (statistics) {
+		document.getElementById("last-update").innerHTML = `Last Update: ${new Date(statistics.lastUpdate).toUTCString()}`;
+	}
+}
+loadGeneralStatistic();
+
 d3.json('../world.json').then(async (can) => {
 	can.features.forEach(feature => {
 		countries[feature.properties.name] = {
@@ -35,9 +44,8 @@ d3.json('../world.json').then(async (can) => {
 		}
 	})
 
-	const coronaStatistics = await fetch("https://covid19.mathdro.id/api/confirmed").then(res => res.json());
+	const coronaStatistics = await fetch(`${API_URL}/confirmed`).then(res => res.json());
 	let maxConfirmed = -1;
-	let temp = null;
 
 	coronaStatistics.forEach(statistic => {
 		let found = true;
@@ -59,7 +67,7 @@ d3.json('../world.json').then(async (can) => {
 			if (maxConfirmed < statistic.confirmed) {
 				maxConfirmed = statistic.confirmed;
 			}
-			const { confirmed, deaths, recovered } = countries[statistic.countryRegion]; 
+			const { confirmed, deaths, recovered } = countries[statistic.countryRegion];
 			countries[statistic.countryRegion] = {
 				...countries[statistic.countryRegion],
 				confirmed: (confirmed || 0) + statistic.confirmed,
