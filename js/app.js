@@ -12,7 +12,7 @@ const countryAlias = {
 
 let countries = {};
 
-d3.json('world.json').then(async (can) => {
+d3.json('../world.json').then(async (can) => {
 	can.features.forEach(feature => {
 		countries[feature.properties.name] = {
 			id: feature.id,
@@ -88,13 +88,13 @@ d3.json('world.json').then(async (can) => {
             	</div>
             	<div class="tooltip-counter">
             		<div>
-            			Confirmed: ${d.properties.confirmed}
+            			Confirmed: ${numberWithCommas(d.properties.confirmed)}
             		</div>
             		<div>
-            			Death: ${d.properties.deaths}
+            			Death: ${numberWithCommas(d.properties.deaths)}
             		</div>
             		<div>
-            			Recovered: ${d.properties.recovered}
+            			Recovered: ${numberWithCommas(d.properties.recovered)}
             		</div>
             	</div>
         	`);
