@@ -1,0 +1,49 @@
+@font-face {
+  font-family: DeepShadow;
+  src: url("fonts/Deep Shadow.ttf");
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #7AC890;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Lato', sans-serif;
+}
+#title {
+	font-family: 'DeepShadow', sans-serif;
+	font-size: 48px;
+	user-select: none;
+}
+#sub-title {
+	user-select: none;
+	font-size: 24px;
+	margin-top: 15px;
+	margin-bottom: 60px;
+}
+#map {
+	margin: 0 auto;
+	position: relative;
+}
+.province {
+    fill: #fff;
+    stroke: #000;
+    cursor: pointer;
+}
+.province:hover {
+    fill: #666;
+}
+.hidden {
+    display: none;
+}
+.tooltip {
+    color: #000;
+    background-color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    position: absolute;
+}
