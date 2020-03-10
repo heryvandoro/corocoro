@@ -23,19 +23,19 @@ body {
 	user-select: none;
 	font-size: 24px;
 	margin-top: 15px;
-	margin-bottom: 60px;
 }
 #map {
 	margin: 0 auto;
 	position: relative;
 }
-.province {
+.country {
     fill: #fff;
-    stroke: #000;
+    stroke: #7590bd;
     cursor: pointer;
 }
-.province:hover {
-    fill: #666;
+.country:hover {
+    fill: #c5cfdf;
+    stroke: #456aa9;
 }
 .hidden {
     display: none;
@@ -43,7 +43,12 @@ body {
 .tooltip {
     color: #000;
     background-color: #fff;
-    padding: 8px 12px;
+    padding: 12px 16px;
     border-radius: 5px;
     position: absolute;
+    border: 1px solid #000;
+}
+.tooltip-counter {
+    margin-top: 6px;
+    font-size: 12px;
 }
