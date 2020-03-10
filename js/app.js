@@ -1,4 +1,4 @@
-const width = 1200, height = 700
+const width = 1200, height = 500
 const svg = d3.select('#map').append('svg')
 			.attr('width', width)
 			.attr('height', height);
@@ -9,8 +9,23 @@ const countryAlias = {
 	"Mainland China": ["China"],
 	"US": ["United States of America"],
 }
-
 let countries = {};
+
+const colors = ['#ffd180', '#eeb045', '#d63c3c', '#cb2e2e'];
+const checkPoints = [0, 100, 1000, 10000, 100000];
+
+const loadLegends = () => {
+	for(let i = 0; i < checkPoints.length - 1; i ++) {
+		let legend = document.createElement("div");
+		let legendColor = document.createElement("div");
+		legendColor.style.background = colors[i];
+		legendColor.classList.add("color");
+		legend.appendChild(legendColor);
+		legend.appendChild(document.createTextNode(`${numberWithCommas(checkPoints[i])} - ${numberWithCommas(checkPoints[i+1])}`))
+		document.getElementById("legends").appendChild(legend);
+	}
+}
+loadLegends();
 
 d3.json('../world.json').then(async (can) => {
 	can.features.forEach(feature => {
@@ -68,14 +83,27 @@ d3.json('../world.json').then(async (can) => {
 	})
 
     const projection = d3.geoMercator()
-				        .translate([600, 500])
-				        .scale(160)
+				        .translate([600, 350])
+				        .scale(110)
     const path = d3.geoPath().projection(projection);
     const countriesDom = svg.selectAll('.country')
     				.data(can.features).enter();
 
     countriesDom.append('path')
     .attr('class', 'country')
+    .attr('style', (d) => {
+    	const confirmed = d.properties.confirmed;
+    	if (confirmed === 0) return '';
+    	let color = '';
+
+    	for(let i = 0; i < checkPoints.length - 1; i++) {
+    		if (confirmed > checkPoints[i] && confirmed < checkPoints[i+1]) {
+    			color = colors[i];
+    		}
+    	}
+
+    	return `fill: ${color}`;
+    })
     .attr('d', path)
     .on('mousemove', function(d) {
         var mouse = d3.mouse(svg.node()).map(d => parseInt(d));
